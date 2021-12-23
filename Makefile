@@ -1,4 +1,4 @@
-GIT_TAG := $(shell git rev-parse -- HEAD)
+GIT_TAG := $(shell git rev-parse --short HEAD)
 
 all: lint build publish
 
@@ -14,4 +14,11 @@ build:
 
 .PHONY: publish
 publish:
-	echo podman push ghcr.io/akdev1l/base:latest
+	podman tag \
+		akdev1l/devenv:latest \
+		ghcr.io/akdev1l/devenv:${GIT_TAG} \
+		ghcr.io/akdev1l/devenv:latest
+	podman push \
+		ghcr.io/akdev1l/devenv:${GIT_TAG} \
+		ghcr.io/akdev1l/devenv:latest
+		

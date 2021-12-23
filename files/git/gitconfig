@@ -1,0 +1,9 @@
+[user]
+	signingkey = 89105A9A006A6F11
+	email = alex@akdev.xyz
+	name = Alex Diaz
+[commit]
+    gpgsign = true
+[credential]
+	helper = !aws --profile aws-alpha codecommit credential-helper $@
+	UseHttpPath = true
