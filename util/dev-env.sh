@@ -14,6 +14,4 @@ git clone https://github.com/jimeh/tmux-themepack.git /root/.config/tmux-themepa
 
 chsh -s /usr/bin/zsh
 
-ssh-keygen -b 4096 -t ed25519 -N "${SSH_KEY_PASSWORD}"
-
 rm -rf /tmp/* /var/cache/* /var/log/*
