@@ -16,9 +16,16 @@ build:
 publish:
 	podman tag \
 		akdev1l/devenv:latest \
+		docker.io/akdev1l/devenv:${GIT_TAG} \
 		ghcr.io/akdev1l/devenv:${GIT_TAG} \
+		docker.io/akdev1l/devenv:latest \
 		ghcr.io/akdev1l/devenv:latest
+
 	podman push \
-		ghcr.io/akdev1l/devenv:${GIT_TAG} \
+		docker.io/akdev1l/devenv:${GIT_TAG}
+	podman push \
+		ghcr.io/akdev1l/devenv:${GIT_TAG}
+	podman push \
+		docker.io/akdev1l/devenv:latest
+	podman push \
 		ghcr.io/akdev1l/devenv:latest
-		

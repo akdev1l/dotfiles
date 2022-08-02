@@ -1,4 +1,4 @@
-FROM fedora:35
+FROM fedora:36
 
 COPY ./util/dev-env.sh /tmp/dev-env.sh
 RUN /tmp/dev-env.sh 
