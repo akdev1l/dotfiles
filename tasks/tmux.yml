@@ -1,0 +1,11 @@
+---
+- name: install tmux themepack
+  git:
+    repo: https://github.com/jimeh/tmux-themepack.git
+    dest: ~/.config/tmux-themepack"
+    depth: 1
+
+- name: deploy tmux configuration
+  copy: 
+    src: tmux/tmux.conf
+    dest: ~/.tmux.conf

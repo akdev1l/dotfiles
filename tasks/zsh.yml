@@ -1,0 +1,50 @@
+---
+- name: install zsh packages
+  become: yes
+  yum:
+    name:
+      - zsh
+
+- name: get oh-my-zsh installation status
+  stat:
+    path: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
+  register: oh_my_zsh_info
+
+- name: install oh-my-zsh
+  when: not oh_my_zsh_info.stat.exists
+  environment:
+    ZSH: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
+    CHSH: no
+    RUNZSH: no
+    KEEP_ZSHRC: yes
+  script:
+    cmd: ./util/install-oh-my-zsh.sh
+
+- name: install oh-my-zsh plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh/plugins/{{ item.name }}"
+  loop:
+    - repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
+      name: zsh-syntax-highlighting
+    - repo: https://github.com/zsh-users/zsh-autosuggestions.git
+      name: zsh-autosuggestions
+
+- name: install oh-my-zsh themes
+  git:
+    repo: "{{ item. repo }}"
+    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh/custom/themes/{{ item.name }}"
+    depth: 1
+  loop:
+    - repo: https://github.com/romkatv/powerlevel10k.git
+      name: powerlevel10k
+
+- name: deploy prompt
+  copy:
+    src: zsh/p10k.zsh
+    dest: "{{ '~' | expanduser }}/.local/share/p10k.zsh"
+
+- name: deploy .zshrc
+  copy:
+    src: zsh/zshrc
+    dest: "{{ '~' | expanduser }}/.zshrc"

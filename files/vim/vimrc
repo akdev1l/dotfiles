@@ -6,10 +6,11 @@ set tabstop=4
 set expandtab
 set shiftwidth=4
 
+set colorcolumn=100
+highlight ColorColumn ctermbg=red guibg=red
+
 "File type overrides
 autocmd FileType yml setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-
-"Custom template files
-augroup templates
-    autocmd BufNewFile *.py 0r ~/.config/vim/templates/python-skel.vim
-augroup END
+autocmd FileType js  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType ts  setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+autocmd FileType tsx setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab

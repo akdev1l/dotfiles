@@ -1,0 +1,13 @@
+---
+- name: install vim
+  become: yes
+  yum:
+    name: vim
+
+- name: deploy configuration file
+  copy:
+    src: vim/vimrc
+    dest: ~/.vimrc
+
+
+  

@@ -10,7 +10,7 @@ dnf install -y \
     zsh git java-latest-openjdk \
     nodejs /usr/bin/chsh
 
-git clone https://github.com/jimeh/tmux-themepack.git /root/.config/tmux-themepack
+git clone https://github.com/jimeh/tmux-themepack.git ~/.config/tmux-themepack
 
 chsh -s /usr/bin/zsh
 
