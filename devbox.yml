@@ -2,29 +2,8 @@
 - name: configure devbox environment
   hosts: localhost
   tasks:
-    - name: install devtools
-      become: true
-      yum:
-        name:
-          - buildah
-          - skopeo
-          - podman
-          - git
-          - zsh
-          - vim-enhanced
-          - neovim
-          - binutils
-          - gdb
-          - gcc
-          - gcc-c++
-          - make
-          - nodejs
-          - python
-          - fira-code-fonts
-          - java-latest-openjdk
-          - cmake
-          - tmux
-        state: present
+    - name: deploy base development tools
+      import_tasks: tasks/base-devel.yml
 
     - name: deploy zsh
       import_tasks: tasks/zsh.yml
@@ -34,3 +13,6 @@
 
     - name: deploy tmux
       import_tasks: tasks/tmux.yml
+
+    - name: deploy fedora utilities
+      import_tasks: tasks/fedora.yml

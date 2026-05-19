@@ -1,0 +1,22 @@
+---
+- name: install devtools
+  become: true
+  yum:
+    name:
+      - awscli2
+      - gh
+      - buildah
+      - skopeo
+      - podman
+      - git
+      - binutils
+      - gdb
+      - gcc
+      - gcc-c++
+      - make
+      - nodejs
+      - python
+      - java-latest-openjdk
+      - cmake
+      - tmux
+    state: present

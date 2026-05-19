@@ -5,20 +5,11 @@
     name:
       - zsh
 
-- name: get oh-my-zsh installation status
-  stat:
-    path: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
-  register: oh_my_zsh_info
-
 - name: install oh-my-zsh
-  when: not oh_my_zsh_info.stat.exists
-  environment:
-    ZSH: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
-    CHSH: no
-    RUNZSH: no
-    KEEP_ZSHRC: yes
-  script:
-    cmd: ./util/install-oh-my-zsh.sh
+  git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
+    depth: 1
 
 - name: install oh-my-zsh plugins
   git:

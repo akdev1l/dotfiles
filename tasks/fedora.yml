@@ -1,0 +1,9 @@
+---
+- name: install fedora packaging tools
+  become: yes
+  yum:
+    name:
+      - fedora-packager-kerberos
+      - fedpkg
+      - rpkg
+      - rpmlint
