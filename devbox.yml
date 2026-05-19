@@ -2,6 +2,9 @@
 - name: configure devbox environment
   hosts: localhost
   tasks:
+    - name: create user filesystem tree
+      import_tasks: tasks/user-filesystem.yml
+
     - name: deploy base development tools
       import_tasks: tasks/base-devel.yml
 
@@ -16,3 +19,6 @@
 
     - name: deploy fedora utilities
       import_tasks: tasks/fedora.yml
+
+    - name: deploy claude ai
+      import_tasks: tasks/claude.yml

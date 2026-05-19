@@ -1,0 +1,7 @@
+---
+- name: user directory tree
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - "{{ '~' | expanduser }}/.local/bin"

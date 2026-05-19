@@ -1,0 +1,25 @@
+---
+- name: get claude version
+  uri:
+    url: https://downloads.claude.ai/claude-code-releases/latest
+    method: GET
+    return_content: yes
+  register: claude_version
+
+- name: get claude manifest
+  uri:
+    url: "https://downloads.claude.ai/claude-code-releases/{{ claude_version.content }}/manifest.json"
+    method: GET
+    return_content: yes
+  register: claude_manifest
+
+- name: print out version
+  debug:
+    msg: "{{claude_manifest}}"
+    
+- name: get claude binary
+  get_url:
+    url: "https://downloads.claude.ai/claude-code-releases/{{ claude_version.content }}/linux-x64/claude"
+    checksum: "sha256:{{ claude_manifest.json.platforms['linux-x64'].checksum }}"
+    dest: "{{ '~' | expanduser }}/.local/bin/claude"
+    mode: '0755'
