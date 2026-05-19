@@ -4,4 +4,4 @@
     path: "{{ item }}"
     state: directory
   loop:
-    - "{{ '~' | expanduser }}/.local/bin"
+    - "{{ ansible_env.HOME }}/.local/bin"

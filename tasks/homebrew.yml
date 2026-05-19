@@ -1,0 +1,59 @@
+---
+- name: create /opt/homebrew
+  file:
+    state: directory
+    path: /opt/homebrew
+    owner: "{{ ansible_user_id }}"
+  become: true
+
+- name: install homebrew
+  shell: NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /opt/homebrew/bin
+
+- name: install homebrew packages
+  community.general.homebrew:
+    name:
+      - git
+      - gh
+      - jq
+      - ripgrep
+      - fzf
+      - tmux
+      - htop
+      - vim
+      - macvim
+      - gpg2
+      - awscli
+      - aws-sam-cli
+      - aws-cdk
+      - gcc
+      - llvm
+      - cmake
+      - podman
+      - vivid
+      - coreutils
+      - zsh-syntax-highlighting
+      - zsh-autosuggestions
+    state: present
+
+- name: install homebrew cask applications
+  community.general.homebrew:
+    name:
+      - iterm2
+      - keepassxc
+      - google-drive
+      - brave-browser
+      - firefox
+      - veracrypt
+      - signal
+      - yubico-authenticator
+      - yubikey-personalization
+      - yubico-yubikey-manager
+      - pgadmin4
+      - rectangle
+      - maccy
+      - macfuse
+      - font-fira-code
+      - font-fira-mono-for-powerline
+    state: present

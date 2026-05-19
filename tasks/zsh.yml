@@ -4,17 +4,18 @@
   yum:
     name:
       - zsh
+  when: ansible_os_family != 'Darwin'
 
 - name: install oh-my-zsh
   git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
-    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh"
+    dest: "{{ ansible_env.HOME }}/.local/share/oh-my-zsh"
     depth: 1
 
 - name: install oh-my-zsh plugins
   git:
     repo: "{{ item.repo }}"
-    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh/plugins/{{ item.name }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/oh-my-zsh/plugins/{{ item.name }}"
   loop:
     - repo: https://github.com/zsh-users/zsh-syntax-highlighting.git
       name: zsh-syntax-highlighting
@@ -24,7 +25,7 @@
 - name: install oh-my-zsh themes
   git:
     repo: "{{ item. repo }}"
-    dest: "{{ '~' | expanduser }}/.local/share/oh-my-zsh/custom/themes/{{ item.name }}"
+    dest: "{{ ansible_env.HOME }}/.local/share/oh-my-zsh/custom/themes/{{ item.name }}"
     depth: 1
   loop:
     - repo: https://github.com/romkatv/powerlevel10k.git
@@ -33,9 +34,9 @@
 - name: deploy prompt
   copy:
     src: zsh/p10k.zsh
-    dest: "{{ '~' | expanduser }}/.local/share/p10k.zsh"
+    dest: "{{ ansible_env.HOME }}/.local/share/p10k.zsh"
 
 - name: deploy .zshrc
   copy:
     src: zsh/zshrc
-    dest: "{{ '~' | expanduser }}/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"

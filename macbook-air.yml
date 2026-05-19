@@ -1,0 +1,40 @@
+---
+- name: configure macbook air
+  hosts: localhost
+  vars:
+    claude_platform: darwin-arm64
+
+  tasks:
+    - name: assert darwin platform
+      ansible.builtin.fail:
+        msg: "This playbook is macOS only (detected: {{ ansible_os_family }})"
+      when: ansible_os_family != 'Darwin'
+
+    - name: bootstrap homebrew and install packages
+      import_tasks: tasks/homebrew.yml
+
+    - name: create user filesystem tree
+      import_tasks: tasks/user-filesystem.yml
+
+    - name: configure ssh access
+      import_tasks: tasks/ssh.yml
+
+    - name: deploy zsh
+      import_tasks: tasks/zsh.yml
+
+    - name: deploy vim
+      import_tasks: tasks/vim.yml
+
+    - name: deploy tmux
+      import_tasks: tasks/tmux.yml
+
+    - name: deploy .gitconfig
+      copy:
+        src: files/git/gitconfig
+        dest: "{{ ansible_env.HOME }}/.gitconfig"
+
+    - name: deploy claude ai
+      import_tasks: tasks/claude.yml
+
+    - name: set screenshots save location
+      shell: "defaults write com.apple.screencapture location {{ ansible_env.HOME }}/Documents/workshop/screenshots"

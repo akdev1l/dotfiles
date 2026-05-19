@@ -3,11 +3,22 @@
   become: yes
   yum:
     name: vim
+  when: ansible_os_family != 'Darwin'
+
+- name: clone vim plugins
+  git:
+    repo: "{{ item.repo }}"
+    dest: "{{ item.dest }}"
+  loop:
+    - repo: https://github.com/vim-airline/vim-airline-themes
+      dest: "{{ ansible_env.HOME }}/.vim/pack/dist/start/vim-airline-themes"
+    - repo: https://github.com/preservim/nerdtree.git
+      dest: "{{ ansible_env.HOME }}/.vim/pack/vendor/start/nerdtree"
 
 - name: deploy configuration file
   copy:
     src: vim/vimrc
-    dest: ~/.vimrc
+    dest: "{{ ansible_env.HOME }}/.vimrc"
 
 
   

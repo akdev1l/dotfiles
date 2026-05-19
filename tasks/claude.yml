@@ -19,7 +19,7 @@
     
 - name: get claude binary
   get_url:
-    url: "https://downloads.claude.ai/claude-code-releases/{{ claude_version.content }}/linux-x64/claude"
-    checksum: "sha256:{{ claude_manifest.json.platforms['linux-x64'].checksum }}"
-    dest: "{{ '~' | expanduser }}/.local/bin/claude"
+    url: "https://downloads.claude.ai/claude-code-releases/{{ claude_version.content }}/{{ claude_platform | default('linux-x64') }}/claude"
+    checksum: "sha256:{{ claude_manifest.json.platforms[claude_platform | default('linux-x64')].checksum }}"
+    dest: "{{ ansible_env.HOME }}/.local/bin/claude"
     mode: '0755'

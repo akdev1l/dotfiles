@@ -2,10 +2,10 @@
 - name: install tmux themepack
   git:
     repo: https://github.com/jimeh/tmux-themepack.git
-    dest: ~/.config/tmux-themepack"
+    dest: "{{ ansible_env.HOME }}/.config/tmux-themepack"
     depth: 1
 
 - name: deploy tmux configuration
-  copy: 
+  copy:
     src: tmux/tmux.conf
-    dest: ~/.tmux.conf
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
