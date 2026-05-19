@@ -1,12 +1,12 @@
-FROM fedora:36
+FROM fedora:44
 
-COPY ./util/dev-env.sh /tmp/dev-env.sh
-RUN /tmp/dev-env.sh 
+RUN dnf install -y ansible sudo && dnf clean all
 
-COPY ./util/install-oh-my-zsh.sh /tmp/install-oh-my-zsh.sh
-RUN /tmp/install-oh-my-zsh.sh
+COPY . /tmp/dotfiles/
+WORKDIR /tmp/dotfiles
 
-COPY ./files/vim/vimrc /root/.vimrc
-COPY ./files/tmux/tmux.conf /root/.tmux.conf
-COPY ./files/zsh/zshrc /root/.zshrc
-COPY ./files/git/gitconfig /root/.gitconfig
+RUN ansible-playbook container.yml -c local
+
+RUN rm -rf /tmp/dotfiles /tmp/* /var/cache/* /var/log/*
+
+CMD ["/usr/bin/zsh"]

@@ -1,12 +1,9 @@
 ---
-- name: configure devbox environment
+- name: configure container environment
   hosts: localhost
   tasks:
     - name: create user filesystem tree
       import_tasks: tasks/user-filesystem.yml
-
-    - name: create user filesystem tree
-      import_tasks: tasks/ssh.yml
 
     - name: deploy base development tools
       import_tasks: tasks/base-devel.yml
@@ -14,14 +11,16 @@
     - name: deploy zsh
       import_tasks: tasks/zsh.yml
 
+    - name: set zsh as default shell
+      user:
+        name: root
+        shell: /usr/bin/zsh
+
     - name: deploy vim
       import_tasks: tasks/vim.yml
 
     - name: deploy tmux
       import_tasks: tasks/tmux.yml
-
-    - name: deploy fedora utilities
-      import_tasks: tasks/fedora.yml
 
     - name: deploy claude ai
       import_tasks: tasks/claude.yml

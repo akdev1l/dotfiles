@@ -1,0 +1,5 @@
+---
+- name: configure ssh access
+  authorized_key:
+    key: https://github.com/akdev1l.keys
+    user: "{{ansible_facts['user_id']}}" 
